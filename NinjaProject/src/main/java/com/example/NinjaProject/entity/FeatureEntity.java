@@ -1,10 +1,15 @@
 package com.example.NinjaProject.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 import java.util.Date;
 @Entity
 @Table(name="feature")
+@EntityListeners(AuditingEntityListener.class)
 public class FeatureEntity {
 
     @Id
@@ -18,13 +23,15 @@ public class FeatureEntity {
     @Column(name="description")
     private String description;
 
-    @Column(name="created_date")
+    @CreatedDate
+    @Column(name="created_date",  updatable = false ,nullable=false)
     private Date createddate;
 
     @Column(name="created_by")
     private String createdby;
 
-    @Column(name="updated_date")
+    @LastModifiedDate
+    @Column(name="updated_date",  nullable = false )
     private Date updateddate;
 
     @Column(name="updated_by")
@@ -57,13 +64,7 @@ public class FeatureEntity {
         this.description = description;
     }
 
-    public Date getCreateddate() {
-        return createddate;
-    }
 
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
 
     public String getCreatedby() {
         return createdby;
@@ -71,6 +72,14 @@ public class FeatureEntity {
 
     public void setCreatedby(String createdby) {
         this.createdby = createdby;
+    }
+
+    public Date getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
     }
 
     public Date getUpdateddate() {

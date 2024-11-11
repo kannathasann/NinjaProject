@@ -1,6 +1,8 @@
 package com.example.NinjaProject.dto;
 
 import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.util.Date;
 
@@ -39,13 +41,6 @@ public class FeatureDto {
         this.description = description;
     }
 
-    public Date getCreateddate() {
-        return createddate;
-    }
-
-    public void setCreateddate(Date createddate) {
-        this.createddate = createddate;
-    }
 
     public String getCreatedby() {
         return createdby;
@@ -53,6 +48,14 @@ public class FeatureDto {
 
     public void setCreatedby(String createdby) {
         this.createdby = createdby;
+    }
+
+    public Date getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(Date createddate) {
+        this.createddate = createddate;
     }
 
     public Date getUpdateddate() {

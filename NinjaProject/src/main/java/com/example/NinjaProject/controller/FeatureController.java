@@ -31,5 +31,33 @@ public class FeatureController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping("/addFeature")
+    public ResponseEntity<FeatureDto> createFeature(@RequestBody FeatureDto featureDto)
+    {
+        FeatureDto responseDto=featureService.createFeature(featureDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/updateFeature")
+    public ResponseEntity<String> createFeature(@RequestParam("name") String name,@RequestParam("active") boolean active)
+    {
+        String response=featureService.updateFeature(name, active);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/deleteFeature")
+    public ResponseEntity<String> deleteFeature(@RequestParam("name") String name)
+    {
+        String response=featureService.deleteFeature(name);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+
+
+
+
+
 
 }

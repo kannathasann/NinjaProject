@@ -35,15 +35,7 @@ public class ConfigController {
     @GetMapping("/config/{configName}")
     public ResponseEntity<?> getConfigvalues(@PathVariable("configName") String name) {
         ConfigDto configDto = configService.getConfigvalues(name);
-       if(configDto==null)
-       {
-//           ErrorDto errorDto = new ErrorDto();
-//           errorDto.setErrorCode("404");
-//           errorDto.setErrorMessage("not_found");
-//           errorDto.setErrorDescription("Config not found in the db");
-//           return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
-           throw new ConfigNotFoundException("not-found");
-       }
+
 //        ConfigDto configDto = commonMethods.getConfigvalues(name);
         return new ResponseEntity<>(configDto, HttpStatus.OK);
 
