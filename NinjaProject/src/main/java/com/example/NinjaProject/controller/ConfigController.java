@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/config")
 public class ConfigController {
 
     @Autowired
@@ -32,8 +33,8 @@ public class ConfigController {
 
     }
 
-    @GetMapping("/config/{configName}")
-    public ResponseEntity<?> getConfigvalues(@PathVariable("configName") String name) {
+    @GetMapping("/getConfigByName")
+    public ResponseEntity<?> getConfigvalues(@RequestParam String name) {
         ConfigDto configDto = configService.getConfigvalues(name);
 
 //        ConfigDto configDto = commonMethods.getConfigvalues(name);
@@ -41,14 +42,14 @@ public class ConfigController {
 
     }
 
-    @PutMapping("updateConfig/{configName}")
-    public ResponseEntity<String> updateConfig(@PathVariable("configName") String name, @RequestParam("refIDs") String refIDs) {
+    @PutMapping("updateConfigByName")
+    public ResponseEntity<String> updateConfig(@RequestParam("name") String name, @RequestParam("refIDs") String refIDs) {
         String result = configService.updateConfig(name, refIDs);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping("deleteConfig")
-    public ResponseEntity<String> deleteConfig(@RequestParam("configname") String name) {
+    @DeleteMapping("deleteConfigByName")
+    public ResponseEntity<String> deleteConfig(@RequestParam("name") String name) {
         String result = configService.deleteConfig(name);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

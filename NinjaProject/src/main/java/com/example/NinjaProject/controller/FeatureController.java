@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/feature")
 public class FeatureController {
 
     @Autowired
@@ -25,39 +26,30 @@ public class FeatureController {
 
     }
 
-    @GetMapping("feature/{id}")
+    @GetMapping("getConfigByFeatureID/{id}")
     public ResponseEntity<List<String>> listConfigBYFeature(@PathVariable("id") int id) {
         List<String> result = featureService.listConfigBYFeature(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/addFeature")
-    public ResponseEntity<FeatureDto> createFeature(@RequestBody FeatureDto featureDto)
-    {
-        FeatureDto responseDto=featureService.createFeature(featureDto);
+    public ResponseEntity<FeatureDto> createFeature(@RequestBody FeatureDto featureDto) {
+        FeatureDto responseDto = featureService.createFeature(featureDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @PutMapping("/updateFeature")
-    public ResponseEntity<String> createFeature(@RequestParam("name") String name,@RequestParam("active") boolean active)
-    {
-        String response=featureService.updateFeature(name, active);
+    @PutMapping("/updateFeatureByName")
+    public ResponseEntity<String> updateFeature(@RequestParam("name") String name, @RequestParam("active") boolean active) {
+        String response = featureService.updateFeature(name, active);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
 
-    @DeleteMapping("/deleteFeature")
-    public ResponseEntity<String> deleteFeature(@RequestParam("name") String name)
-    {
-        String response=featureService.deleteFeature(name);
+    @DeleteMapping("/deleteFeatureByName")
+    public ResponseEntity<String> deleteFeature(@RequestParam("name") String name) {
+        String response = featureService.deleteFeature(name);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
-
-
-
-
-
-
 
 }

@@ -27,7 +27,6 @@ public class ConfigServiceImpl implements ConfigService {
     @Autowired
     ConfigDao configDao;
 
-
     @Autowired
     ModelMapper modelMapper;
 
@@ -74,7 +73,7 @@ public class ConfigServiceImpl implements ConfigService {
 
         int i = configDao.updateConfig(name, refIDs);
         if (i > 0)
-            return "updated successfully...";
+            return ""+name+" updated successfully...";
         else
             return "update failure..";
     }
@@ -84,9 +83,9 @@ public class ConfigServiceImpl implements ConfigService {
     public String deleteConfig(String name) {
         int i = configDao.deleteConfig(name);
         if (i > 0)
-            return "no. of rows deleted successfully.." + i;
+            return ""+name+" is deleted successfully..";
         else
-            return "no record is present..";
+            return ""+name+" is not present..";
     }
 
     public ConfigDto createConfig(ConfigDto configDto) {
@@ -95,7 +94,7 @@ public class ConfigServiceImpl implements ConfigService {
         ConfigEntity savedEntity = configDao.save(configEntity);
 
         ConfigDto responseDto= modelMapper.map(savedEntity, ConfigDto.class);
-        redisTemplate.opsForValue().set(responseDto.getConfigName(), responseDto);
+
         return responseDto;
 
     }
