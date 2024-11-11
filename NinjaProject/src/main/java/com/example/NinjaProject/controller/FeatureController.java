@@ -18,8 +18,6 @@ public class FeatureController {
     @Autowired
     FeatureService featureService;
 
-
-
     @GetMapping("/getAllFeatures")
     public ResponseEntity<List<FeatureDto>> getAllFeatures() {
         List<FeatureDto> list = featureService.getAllFeatures();

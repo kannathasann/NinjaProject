@@ -45,12 +45,9 @@ public class ConfigController {
            throw new ConfigNotFoundException("not-found");
        }
 //        ConfigDto configDto = commonMethods.getConfigvalues(name);
-
-
         return new ResponseEntity<>(configDto, HttpStatus.OK);
 
     }
-
 
     @PutMapping("updateConfig/{configName}")
     public ResponseEntity<String> updateConfig(@PathVariable("configName") String name, @RequestParam("refIDs") String refIDs) {
