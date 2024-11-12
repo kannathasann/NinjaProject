@@ -11,7 +11,7 @@ public interface ConfigService {
 
     public ConfigDto getConfigvalues(String name);
 
-    public String updateConfig(String name, String refIDs);
+    public ConfigDto updateConfig(String name, String refIDs);
 
     public String deleteConfig(String name);
 

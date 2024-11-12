@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -52,12 +53,9 @@ public class ConfigServiceImpl implements ConfigService {
     @Cacheable(value = "configCache", key = "#name")
     public ConfigDto getConfigvalues(String name) {
         ConfigDto configDto = new ConfigDto();
-        if (redisTemplate.hasKey(name)) {
-            logger.info("get data from redis, Cache hit for config name: {}", name);
-        } else {
-            logger.info("get data from external db,Cache miss for config name: {}", name);
-        }
-        ConfigEntity configEntity = configDao.getConfigValues(name);
+
+//        ConfigEntity configEntity = configDao.getConfigValues(name);
+       ConfigEntity configEntity= configDao.findByConfigName(name);
      if(configEntity==null)
          throw new ConfigNotFoundException("not_found...");
 
@@ -68,14 +66,18 @@ public class ConfigServiceImpl implements ConfigService {
     }
 
     @Override
-    @CacheEvict(value = "configCache", key = "#name")
-    public String updateConfig(String name, String refIDs) {
+    @CachePut(value = "configCache", key = "#name")
+    public ConfigDto updateConfig(String name, String refIDs) {
 
         int i = configDao.updateConfig(name, refIDs);
-        if (i > 0)
-            return ""+name+" updated successfully...";
+
+        if (i > 0) {
+          ConfigEntity configEntity=  configDao.findByConfigName(name);
+          ConfigDto configDto=modelMapper.map(configEntity, ConfigDto.class);
+          return configDto;
+        }
         else
-            return "update failure..";
+            throw  new ConfigNotFoundException("Config not found");
     }
 
     @Override

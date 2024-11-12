@@ -19,7 +19,8 @@ public class CommonMethods {
     @Cacheable(value = "configCache", key = "#name")
     public ConfigDto getConfigvalues(String name) {
         ConfigDto configDto = new ConfigDto();
-        ConfigEntity configEntity = configDao.getConfigValues(name);
+//        ConfigEntity configEntity = configDao.getConfigValues(name);
+        ConfigEntity configEntity=configDao.findByConfigName(name);
         BeanUtils.copyProperties(configEntity, configDto);
         return configDto;
     }

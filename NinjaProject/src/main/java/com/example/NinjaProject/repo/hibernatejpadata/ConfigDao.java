@@ -11,8 +11,11 @@ import java.util.List;
 
 public interface ConfigDao extends JpaRepository<ConfigEntity, Integer> {
 
-    @Query(value = "select * from Config where configname=?1", nativeQuery = true)
-    public ConfigEntity getConfigValues(String name);
+//   @Query(value="select * from config where configname=?1", nativeQuery=true)
+//    public ConfigEntity getConfigValues(String name);
+
+    public ConfigEntity findByConfigName(String configName);
+
 
     @Modifying
     @Transactional

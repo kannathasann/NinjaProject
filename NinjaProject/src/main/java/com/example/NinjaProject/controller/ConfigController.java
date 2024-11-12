@@ -43,9 +43,9 @@ public class ConfigController {
     }
 
     @PutMapping("updateConfigByName")
-    public ResponseEntity<String> updateConfig(@RequestParam("name") String name, @RequestParam("refIDs") String refIDs) {
-        String result = configService.updateConfig(name, refIDs);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<ConfigDto> updateConfig(@RequestParam("name") String name, @RequestParam("refIDs") String refIDs) {
+        ConfigDto configDto = configService.updateConfig(name, refIDs);
+        return new ResponseEntity<>(configDto, HttpStatus.OK);
     }
 
     @DeleteMapping("deleteConfigByName")
