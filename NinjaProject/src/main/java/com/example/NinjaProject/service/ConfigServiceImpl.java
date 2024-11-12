@@ -90,6 +90,8 @@ public class ConfigServiceImpl implements ConfigService {
             return ""+name+" is not present..";
     }
 
+    @Override
+    @CachePut(value = "configCache", key = "#configDto.configName")
     public ConfigDto createConfig(ConfigDto configDto) {
         ConfigEntity configEntity = modelMapper.map(configDto, ConfigEntity.class);
 
